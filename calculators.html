@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculators | The House of Shield & Yield</title>
+<meta name="description" content="Financial calculators for SIP, Lumpsum, SWP, Step-Up SIP, Goal Planning and Retirement Planning.">
+<style>
+:root{
+  --navy:#071a35; --navy2:#0d2b52; --gold:#c9a44c; --gold2:#f0d27a;
+  --white:#fff; --muted:#667085; --bg:#f6f8fb; --card:#fff; --line:#e7ebf0;
+  --shadow:0 14px 40px rgba(7,26,53,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:#172033}
+a{text-decoration:none;color:inherit}
+.nav{position:sticky;top:0;z-index:10;background:rgba(7,26,53,.97);color:#fff;padding:15px 5%;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 18px #0002}
+.brand{font-weight:800;font-size:18px;letter-spacing:.2px}.brand span{color:var(--gold2)}
+.navlinks{display:flex;gap:22px;align-items:center;font-size:14px}.navlinks a:hover{color:var(--gold2)}
+.whatsapp{background:#1fa855;padding:10px 16px;border-radius:30px;font-weight:700}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;text-align:center;padding:72px 20px 58px}
+.hero h1{font-size:clamp(34px,6vw,58px);margin:0 0 14px}.hero p{max-width:760px;margin:auto;color:#d9e3f0;line-height:1.7}
+.tabs{display:flex;gap:10px;overflow-x:auto;padding:20px 5%;background:#fff;border-bottom:1px solid var(--line);justify-content:center}
+.tabs button{border:1px solid var(--line);background:#fff;color:var(--navy);padding:11px 17px;border-radius:25px;cursor:pointer;font-weight:700;white-space:nowrap}
+.tabs button.active,.tabs button:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.wrap{max-width:1120px;margin:38px auto;padding:0 20px}
+.calculator{display:none;background:var(--card);border-radius:24px;box-shadow:var(--shadow);padding:28px}
+.calculator.active{display:block}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+h2{margin:0 0 8px;color:var(--navy);font-size:28px}.intro{color:var(--muted);line-height:1.6;margin-top:0}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{font-size:13px;font-weight:700;color:#344054;display:block;margin-bottom:7px}
+input{width:100%;padding:13px 14px;border:1px solid #d8dee8;border-radius:11px;font-size:15px;outline:none}
+input:focus{border-color:var(--gold);box-shadow:0 0 0 3px #c9a44c22}
+.result{background:linear-gradient(145deg,#f9f4e6,#fff);border:1px solid #ead9a7;border-radius:20px;padding:25px}
+.result h3{margin-top:0;color:var(--navy)}
+.big{font-size:34px;font-weight:900;color:var(--navy);margin:8px 0 20px}
+.row{display:flex;justify-content:space-between;border-bottom:1px solid #e5dfcf;padding:11px 0;color:#475467}
+.row strong{color:var(--navy)}
+.btn{margin-top:20px;border:0;background:var(--navy);color:#fff;padding:13px 20px;border-radius:11px;font-weight:800;cursor:pointer}
+.note{font-size:12px;color:#667085;line-height:1.5;margin-top:20px}
+footer{margin-top:55px;background:var(--navy);color:#dce5f1;text-align:center;padding:35px 20px;line-height:1.7}
+footer strong{color:#fff}
+@media(max-width:760px){
+ .nav{align-items:flex-start;gap:12px}.navlinks{display:none}
+ .grid,.formgrid{grid-template-columns:1fr}.calculator{padding:21px}
+ .hero{padding:55px 18px 45px}.wrap{margin-top:25px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="index.html">THE HOUSE OF <span>SHIELD & YIELD</span></a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="wealth.html">Wealth</a>
+    <a href="insurance.html">Insurance</a>
+    <a href="about.html">About</a>
+    <a href="calculators.html">Calculators</a>
+    <a class="whatsapp" href="https://wa.me/917972749423" target="_blank">WhatsApp</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Financial Calculators</h1>
+  <p>Plan your investments, retirement and financial goals with simple illustrative calculators.</p>
+</section>
+
+<div class="tabs">
+  <button class="active" onclick="showCalc('sip',this)">SIP</button>
+  <button onclick="showCalc('lumpsum',this)">Lumpsum</button>
+  <button onclick="showCalc('stepup',this)">Step-Up SIP</button>
+  <button onclick="showCalc('swp',this)">SWP</button>
+  <button onclick="showCalc('goal',this)">Goal Planning</button>
+  <button onclick="showCalc('retirement',this)">Retirement</button>
+</div>
+
+<main class="wrap">
+
+<section id="sip" class="calculator active">
+<div class="grid">
+<div>
+<h2>SIP Calculator</h2><p class="intro">Estimate the potential future value of a monthly SIP based on an assumed return.</p>
+<div class="formgrid">
+<div><label>Monthly SIP (₹)</label><input id="sipAmt" type="number" value="5000" oninput="calcSIP()"></div>
+<div><label>Expected Return (% p.a.)</label><input id="sipRate" type="number" value="12" step=".1" oninput="calcSIP()"></div>
+<div><label>Investment Period (Years)</label><input id="sipYears" type="number" value="10" oninput="calcSIP()"></div>
+</div>
+</div>
+<div class="result"><h3>Illustration</h3><div class="big" id="sipFV">₹11,61,016</div>
+<div class="row"><span>Invested Amount</span><strong id="sipInvest">₹6,00,000</strong></div>
+<div class="row"><span>Estimated Wealth Gain</span><strong id="sipGain">₹5,61,016</strong></div></div>
+</div>
+<p class="note">Illustrative calculation only. Mutual fund returns are market-linked and not guaranteed. Actual results may differ.</p>
+</section>
+
+<section id="lumpsum" class="calculator">
+<div class="grid">
+<div><h2>Lumpsum Calculator</h2><p class="intro">See how a one-time investment may grow over your selected period.</p>
+<div class="formgrid">
+<div><label>Investment (₹)</label><input id="lAmt" type="number" value="100000" oninput="calcLump()"></div>
+<div><label>Expected Return (% p.a.)</label><input id="lRate" type="number" value="12" step=".1" oninput="calcLump()"></div>
+<div><label>Period (Years)</label><input id="lYears" type="number" value="10" oninput="calcLump()"></div>
+</div></div>
+<div class="result"><h3>Illustration</h3><div class="big" id="lFV">₹3,10,585</div>
+<div class="row"><span>Invested Amount</span><strong id="lInvest">₹1,00,000</strong></div>
+<div class="row"><span>Estimated Wealth Gain</span><strong id="lGain">₹2,10,585</strong></div></div>
+</div>
+<p class="note">This calculator uses annual compounding for illustration.</p>
+</section>
+
+<section id="stepup" class="calculator">
+<div class="grid">
+<div><h2>Step-Up SIP Calculator</h2><p class="intro">Estimate the effect of increasing your SIP contribution every year.</p>
+<div class="formgrid">
+<div><label>Starting Monthly SIP (₹)</label><input id="suAmt" type="number" value="5000" oninput="calcStep()"></div>
+<div><label>Annual Step-Up (%)</label><input id="suStep" type="number" value="10" oninput="calcStep()"></div>
+<div><label>Expected Return (% p.a.)</label><input id="suRate" type="number" value="12" step=".1" oninput="calcStep()"></div>
+<div><label>Period (Years)</label><input id="suYears" type="number" value="15" oninput="calcStep()"></div>
+</div></div>
+<div class="result"><h3>Illustration</h3><div class="big" id="suFV">₹0</div>
+<div class="row"><span>Total Invested</span><strong id="suInvest">₹0</strong></div>
+<div class="row"><span>Estimated Wealth Gain</span><strong id="suGain">₹0</strong></div></div>
+</div>
+</section>
+
+<section id="swp" class="calculator">
+<div class="grid">
+<div><h2>SWP Calculator</h2><p class="intro">Illustrate withdrawals from an investment corpus at an assumed return.</p>
+<div class="formgrid">
+<div><label>Starting Corpus (₹)</label><input id="swCorpus" type="number" value="1000000" oninput="calcSWP()"></div>
+<div><label>Monthly Withdrawal (₹)</label><input id="swWd" type="number" value="10000" oninput="calcSWP()"></div>
+<div><label>Expected Return (% p.a.)</label><input id="swRate" type="number" value="8" step=".1" oninput="calcSWP()"></div>
+<div><label>Withdrawal Period (Years)</label><input id="swYears" type="number" value="10" oninput="calcSWP()"></div>
+</div></div>
+<div class="result"><h3>Illustration</h3><div class="big" id="swFV">₹0</div>
+<div class="row"><span>Total Withdrawals</span><strong id="swTotal">₹0</strong></div>
+<div class="row"><span>Illustrated Balance</span><strong id="swBalance">₹0</strong></div></div>
+</div>
+</section>
+
+<section id="goal" class="calculator">
+<div class="grid">
+<div><h2>Goal Planning Calculator</h2><p class="intro">Estimate the monthly SIP required to target a future financial goal.</p>
+<div class="formgrid">
+<div><label>Current Goal Cost (₹)</label><input id="gCost" type="number" value="1000000" oninput="calcGoal()"></div>
+<div><label>Inflation (% p.a.)</label><input id="gInf" type="number" value="6" step=".1" oninput="calcGoal()"></div>
+<div><label>Years to Goal</label><input id="gYears" type="number" value="10" oninput="calcGoal()"></div>
+<div><label>Expected Return (% p.a.)</label><input id="gRate" type="number" value="12" step=".1" oninput="calcGoal()"></div>
+</div></div>
+<div class="result"><h3>Illustration</h3><div class="big" id="gFuture">₹0</div>
+<div class="row"><span>Target Future Value</span><strong id="gTarget">₹0</strong></div>
+<div class="row"><span>Required Monthly SIP</span><strong id="gSIP">₹0</strong></div></div>
+</div>
+</section>
+
+<section id="retirement" class="calculator">
+<div class="grid">
+<div><h2>Retirement Calculator</h2><p class="intro">Estimate a future retirement corpus based on your current monthly expenses.</p>
+<div class="formgrid">
+<div><label>Current Monthly Expense (₹)</label><input id="rExp" type="number" value="50000" oninput="calcRet()"></div>
+<div><label>Inflation (% p.a.)</label><input id="rInf" type="number" value="6" step=".1" oninput="calcRet()"></div>
+<div><label>Years to Retirement</label><input id="rYears" type="number" value="20" oninput="calcRet()"></div>
+<div><label>Post-Retirement Return (% p.a.)</label><input id="rRate" type="number" value="8" step=".1" oninput="calcRet()"></div>
+<div><label>Retirement Period (Years)</label><input id="rPeriod" type="number" value="25" oninput="calcRet()"></div>
+</div></div>
+<div class="result"><h3>Illustration</h3><div class="big" id="rCorpus">₹0</div>
+<div class="row"><span>Monthly Expense at Retirement</span><strong id="rFutureExp">₹0</strong></div>
+<div class="row"><span>Illustrated Retirement Corpus</span><strong id="rCorpus2">₹0</strong></div></div>
+</div>
+</section>
+
+</main>
+
+<footer>
+<strong>The House of Shield & Yield</strong><br>
+Planning Wealth. Protecting Futures.<br>
+Mumbai, Maharashtra, India · +91 7972749423<br>
+<a href="mailto:subodhkamble377@gmail.com">subodhkamble377@gmail.com</a>
+</footer>
+
+<script>
+const money=n=>'₹'+Math.round(Math.max(0,n)).toLocaleString('en-IN');
+function showCalc(id,btn){
+ document.querySelectorAll('.calculator').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
+ btn.classList.add('active'); window.scrollTo({top:document.querySelector('.tabs').offsetTop-60,behavior:'smooth'});
+}
+function calcSIP(){
+ let P=+sipAmt.value||0,r=(+sipRate.value||0)/1200,n=(+sipYears.value||0)*12;
+ let fv=r?P*((Math.pow(1+r,n)-1)/r)*(1+r):P*n;
+ sipFV.textContent=money(fv);sipInvest.textContent=money(P*n);sipGain.textContent=money(fv-P*n);
+}
+function calcLump(){
+ let p=+lAmt.value||0,r=(+lRate.value||0)/100,n=+lYears.value||0;
+ let fv=p*Math.pow(1+r,n);lFV.textContent=money(fv);lInvest.textContent=money(p);lGain.textContent=money(fv-p);
+}
+function calcStep(){
+ let p=+suAmt.value||0,step=(+suStep.value||0)/100,rm=(+suRate.value||0)/1200,yrs=+suYears.value||0;
+ let corpus=0,invest=0,monthly=p;
+ for(let y=1;y<=yrs;y++){for(let m=0;m<12;m++){corpus=(corpus+monthly)*(1+rm);invest+=monthly;}monthly*=1+step;}
+ suFV.textContent=money(corpus);suInvest.textContent=money(invest);suGain.textContent=money(corpus-invest);
+}
+function calcSWP(){
+ let bal=+swCorpus.value||0,w=+swWd.value||0,r=(+swRate.value||0)/1200,n=(+swYears.value||0)*12,total=0;
+ for(let i=0;i<n;i++){bal*=1+r;let wd=Math.min(w,bal);bal-=wd;total+=wd;if(bal<=0)break;}
+ swFV.textContent=money(bal);swTotal.textContent=money(total);swBalance.textContent=money(bal);
+}
+function calcGoal(){
+ let cost=+gCost.value||0,inf=(+gInf.value||0)/100,yrs=+gYears.value||0,ret=(+gRate.value||0)/1200;
+ let target=cost*Math.pow(1+inf,yrs),n=yrs*12,sip=ret?target/(((Math.pow(1+ret,n)-1)/ret)*(1+ret)):target/n;
+ gFuture.textContent=money(target);gTarget.textContent=money(target);gSIP.textContent=money(sip);
+}
+function calcRet(){
+ let exp=+rExp.value||0,inf=(+rInf.value||0)/100,yrs=+rYears.value||0,rr=(+rRate.value||0)/1200,period=+rPeriod.value||0;
+ let futureExp=exp*Math.pow(1+inf,yrs),n=period*12;
+ let corpus=rr?futureExp*((1-Math.pow(1+rr,-n))/rr):futureExp*n;
+ rFutureExp.textContent=money(futureExp);rCorpus.textContent=money(corpus);rCorpus2.textContent=money(corpus);
+}
+calcSIP();calcLump();calcStep();calcSWP();calcGoal();calcRet();
+</script>
+</body>
+</html>
